@@ -8,7 +8,7 @@
     "build": "tsc",
     "prestart": "npm run build",
     "start": "tsc-watch --onSuccess \"node -r dotenv/config .\"",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest --coverage --verbose"
   },
   "repository": "https://github.com/emadgit/boilerplate-node-express-postgresql-typescript",
   "author": "Emad Dehnavi",
@@ -24,13 +24,31 @@
     "winston": "^3.2.1"
   },
   "devDependencies": {
-    "@types/dotenv": "8.2.0",
-    "@types/express": "4.17.2",
-    "@types/node": "^13.5.0",
-    "@types/pg": "7.14.1",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
+    "@types/dotenv": "8.2.0",
+    "@types/express": "4.17.2",
+    "@types/jest": "^25.1.0",
+    "@types/node": "^13.5.0",
+    "@types/pg": "7.14.1",
+    "jest": "^25.1.0",
+    "ts-jest": "^25.0.0",
     "tslint": "^6.0.0",
     "typescript": "^3.7.5"
+  },
+  "jest": {
+    "verbose": true,
+    "transform": {
+      "^.+\\.tsx?$": "ts-jest"
+    },
+    "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(jsx?|tsx?)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js",
+      "jsx",
+      "json",
+      "node"
+    ]
   }
 }
