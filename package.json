@@ -1,7 +1,7 @@
 {
-  "name": "boilerplate-node-express-postgresql-typescript",
+  "name": "auth-rest-api-express-postgresql-typescript",
   "version": "1.0.0",
-  "description": "Boilerplate of a node.js express postgresql powered by typescript",
+  "description": "Rest API for a authentication coding challange",
   "main": "dist/app.js",
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
@@ -10,20 +10,22 @@
     "start": "tsc-watch --onSuccess \"node -r dotenv/config .\"",
     "test": "jest --coverage --verbose"
   },
-  "repository": "https://github.com/emadgit/boilerplate-node-express-postgresql-typescript",
+  "repository": "https://gitemad@bitbucket.org/gitemad/authentication.git",
   "author": "Emad Dehnavi",
   "license": "MIT",
   "private": false,
   "dependencies": {
+    "bcrypt": "5.0.1",
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
-    "pg": "^7.17.1",
+    "pg": "8.7.3",
     "tsc-watch": "^4.1.0",
     "winston": "^3.2.1"
   },
   "devDependencies": {
+    "@types/bcrypt": "5.0.0",
     "@types/compression": "^1.0.1",
     "@types/cors": "^2.8.6",
     "@types/dotenv": "8.2.0",
@@ -31,10 +33,11 @@
     "@types/jest": "^25.1.0",
     "@types/node": "^13.5.0",
     "@types/pg": "7.14.1",
+    "@types/uuid": "8.3.4",
     "jest": "^25.1.0",
-    "ts-jest": "^25.0.0",
-    "tslint": "^6.0.0",
-    "typescript": "^3.7.5"
+    "ts-jest": "27.1.3",
+    "tslint": "6.1.3",
+    "typescript": "4.5.5"
   },
   "jest": {
     "verbose": true,
