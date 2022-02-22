@@ -1,5 +1,7 @@
 import { Request, Response } from "express";
 import bcrypt from "bcrypt";
+import crypto from "crypto";
+import jwt from "jsonwebtoken";
 import { logger } from "../../utils/logger";
 import { client } from "../../app";
 import { CreateUserRequest, LoginRequest, User } from "../../types/types";
@@ -21,13 +23,11 @@ export default [
       const user: CreateUserRequest = JSON.parse(JSON.stringify(req.body));
 
       if (!(user.email && user.password)) {
-        return res
-          .status(400)
-          .send({
-            status: RequestStatus.FAILED,
-            event: ApiEvents.REGISTER,
-            error: "Data not formatted properly",
-          });
+        return res.status(400).send({
+          status: RequestStatus.FAILED,
+          event: ApiEvents.REGISTER,
+          error: "Data not formatted properly",
+        });
       }
 
       // generate salt to hash password
@@ -101,10 +101,23 @@ export default [
           login.password,
           user.password
         );
-        if (validPassword) {
+        if (validPassword && process.env.JWT_SECRET) {
+          // Generate JWT token
+          const refreshId = user.id + process.env.JWT_SECRET;
+          const salt = crypto.randomBytes(16).toString("base64");
+          const hash = crypto
+            .createHmac("sha512", salt)
+            .update(refreshId)
+            .digest("base64");
+          req.body.refreshKey = salt;
+          const token = jwt.sign(req.body, process.env.JWT_SECRET);
+          const b = Buffer.from(hash);
+          const refreshToken = b.toString("base64");
           res.status(200).json({
             status: RequestStatus.SUCCESS,
             event: ApiEvents.LOGIN,
+            accessToken: token, // we can use it inside the Authorization header using the form Bearer ACCESS_TOKEN
+            refreshToken,
             error: "",
           });
         } else {
