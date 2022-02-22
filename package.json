@@ -7,7 +7,6 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "postinstall": "npm run build",
-    "prestart": "npm run build",
     "start": "tsc-watch --onSuccess \"node -r dotenv/config .\"",
     "test": "jest --coverage --verbose"
   },
