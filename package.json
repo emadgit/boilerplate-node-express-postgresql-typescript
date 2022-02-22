@@ -6,7 +6,8 @@
   "scripts": {
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
-    "preinstall": "npm run build",
+    "prestart": "npm run build",
+    "postinstall": "npm run build",
     "start": "tsc-watch --onSuccess \"node -r dotenv/config .\"",
     "test": "jest --coverage --verbose"
   },
